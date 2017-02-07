@@ -1,4 +1,8 @@
 import paho.mqtt.client as mqtt
+import time 
+
+instrument_status = False #This variable indicates if the instrument is currently in use
+last_update = 0
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -10,7 +14,10 @@ def on_connect(client, userdata, flags, rc):
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-    print(msg.topic+" "+str(msg.payload))
+    print("Message Recieved: " + msg.topic+" "+float(msg.payload))
+
+def check_times():
+	print "Blah"
 
 client = mqtt.Client()
 client.on_connect = on_connect
@@ -22,4 +29,12 @@ client.connect("broker.hivemq.com", 1883, 60)
 # handles reconnecting.
 # Other loop*() functions are available that give a threaded interface and a
 # manual interface.
-client.loop_forever()
+
+print time.time()
+run = True
+while run == True:
+	client.loop()
+	
+	
+
+
