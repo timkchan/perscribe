@@ -42,9 +42,23 @@ TMP007 Pin setup
 	AD1 AD2 are customised address e.g. AD1=AD2=GROUND
 		=> SMBus Address = 1000000 First 5 bits are set by manufacturer.
 		=> the last bit (LSB) made up the byte indicates read (1) or write (0)
-		
-
-
+---		
+i2c.readfrom_mem(address, temp_reg, 2)
+>>> a = i2c.readfrom_mem(64, 1, 2)
+>>> (a[0]*32+a[1])*0.03125
+---
 
 Reference:
 	https://learn.adafruit.com/micropython-hardware-i2c-devices/i2c-master
+
+
+192.168.0.10
+EEERover
+exhibition
+esys/<GROUPNAME>/???#
+
+>>> s = servo.Servo(machine.Pin(12))
+>>> s = servo.Servo(machine.Pin(12), 50, 350, 2400, 180)
+>>> s.write_angle(10-250)
+
+ToDo: Sleep and interupt
