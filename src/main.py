@@ -1,65 +1,50 @@
-import machine
-import network
-import time
-import temp007_Tim
-import led_Tim
+#Tim K. Chan
+#14/02/17
+
+import machine      # For Pins and i2C
+
+
+import temp007
+import vcnl4010
+import led
 import servo
+import util         # Custom util functions
+
+import networkUtil  # Custom Network functions (WIFI + MQTT)
 from umqtt.simple import MQTTClient
 
-print('main.py loading...')
-for __ in range(10):
-	time.sleep_ms(300)
-	print('.')
 
+# Entry Point Indication
+util.dots()
+
+# Setup i2c Bus
 i2c = machine.I2C(-1, machine.Pin(5), machine.Pin(4))
-print('i2c bus created')
+util.msg('i2c bus created')
 
-#Address of TMP007
-address = 64
+# Instantiate Temperature sensor
+#Address of TMP007 Temperature Sensor
+temp007Address = 64
+tempSensor = temp007.Temp007(i2c, temp007Address)
+util.msg('Temp007 instantiated, name: tempSensor')
 
-sensor = temp007.Temp007(i2c, address)
-print('Temp007 instance created')
+# Instantiate Proximity sensor
+#Address of VCNL4010 Proximity Sensor
+proxAddress = 19
+proxSensor = vcnl4010.Vcnl4010(i2c, proxAddress)
+util.msg('Vcnl instantiated, name: proxSensor')
 
-print('Try dieTemp() or objTemp()')
+# Connecting to the Wifi
+networkUtil.wifiConnect('EEERover', 'exhibition')
+
+# Publisher for Embedded system class demo
+esPub = networkUtil.Publisher('192.168.0.10', defaultTopic = 'esys/TBC/drugDealer')
+util.msg('Publisher instantiated, name: esPub')
 
 
 
-# Function to conenct to the wifi.
-def do_connect():
-    
-    SSID = 'EEERover'
-    PASSWORD = 'exhibition'
 
-    sta_if = network.WLAN(network.STA_IF)
-    ap_if = network.WLAN(network.AP_IF)
-    if ap_if.active():
-        ap_if.active(False)
-    if not sta_if.isconnected():
-        print('connecting to network...')
-        sta_if.active(True)
-        sta_if.connect(SSID, PASSWORD)
-        while not sta_if.isconnected():
-            pass
-    print('Network configuration:', sta_if.ifconfig())
 
-#do_connect()
+#Embedded Sys topic:                esys/TBC/drugDealer
+#Embedded Sys MQTT broker IP:       192.168.0.10
 
 #broker.hivemq.com
-
-def publish(message, server="192.168.0.10"):
-    c = MQTTClient("clientId-UADVnHCKdM", server)
-    c.connect()
-    c.publish(b"esys/forgotton/practiceReminder", message)
-    c.disconnect()
-
-def publishTemp(i):
-	for __ in range(i):
-		time.sleep_ms(300)
-		t = str(sensor.objTemp())
-		print(t)
-		publish(t)
-
-
-
-
-

@@ -57,6 +57,8 @@ EEERover
 exhibition
 esys/<GROUPNAME>/???#
 
+http://www.mqtt-dashboard.com/
+
 >>> s = servo.Servo(machine.Pin(12))
 >>> s = servo.Servo(machine.Pin(12), 50, 350, 2400, 180)
 >>> s.write_angle(10-250)
