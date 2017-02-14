@@ -57,4 +57,4 @@ TMP007 Pin setup
 		=> the last bit (LSB) made up the byte indicates read (1) or write (0)
 
 
-The system uses HiveMQ as the MQTT broker - you can view it's status (here!)[http://www.mqtt-dashboard.com/]
+The system uses HiveMQ as the MQTT broker - you can view it's status [here!](http://www.mqtt-dashboard.com/)
