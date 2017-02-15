@@ -72,7 +72,6 @@ for i in range(10):
     temp[5] = temp[5] + doseInterval * (i+1)
     schedule.append(tuple(temp))
 
-
 # Running the pill dispenser
 taken = False
 for i in range(len(schedule)):
@@ -80,7 +79,10 @@ for i in range(len(schedule)):
         # Time to go to next dose time
         if (utime.mktime(utime.localtime()) > utime.mktime(schedule[i])):
             if taken == False:
-                print('Pill Missed!')
+                msgDict = {'time': utime.localtime(), 'id': 101, 'taken': False, 'temp': tempSensor.objTemp()}
+                msg = jsonEncoder.pack(msgDict)
+                esPub.publish(msg)
+                print('Pill Missed!', msg)
                 servoCtrl.next()
             
             break
@@ -90,7 +92,10 @@ for i in range(len(schedule)):
             green.on()
             red.off()
             if proxSensor.proximity() > 2100:
-                print('Pill Taken!')
+                msgDict = {'time': utime.localtime(), 'id': 101, 'taken': True, 'temp': tempSensor.objTemp()}
+                msg = jsonEncoder.pack(msgDict)
+                esPub.publish(msg)
+                print('Pill Taken!', msg)
                 taken == True
                 servoCtrl.next()
                 break

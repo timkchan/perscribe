@@ -46,13 +46,14 @@ class Publisher:
 		self.mqttClient.set_callback(callBack)
 		self.mqttClient.connect()
 		self.mqttClient.subscribe(tempTopic.encode('UTF-8'))
+		global acquired
 		acquired = False
 		while not acquired:
 			# Blocking wait for message
-			acquired = self.mqttClient.wait_msg()
+			self.mqttClient.check_msg()
+			util.wait(5000)
+			print('w')
 		mqttClient.disconnect()
-
-
 
 	# Repeatedly sending MQTT message to server ( for testing )
 	def flush(self, msg = 'TESTING_TESTING_TESTING', times = 10):

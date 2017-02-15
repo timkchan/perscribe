@@ -9,7 +9,8 @@ class ServoController:
 
 	# Amount of turn of each discard
 	quarterTurn = 30
-	bottomAngle = [12, 55, 95, 133]
+	bottomAngle = [13, 55, 95, 133]
+	topAngle = [0, 12, 170]
 	
 
 	def __init__(self, top, bottom):
@@ -20,6 +21,9 @@ class ServoController:
 		self.state = 0				# State = 0, 1, 2, 3
 		self.direction = 1			# 1 = counter clockwise, -1 = clocwise
 		self.empty = False
+		self.stock = 3
+		self.topDirection = 1
+
 
 	def next(self):
 
@@ -41,7 +45,14 @@ class ServoController:
 			self.state += self.direction
 			print(self.state)
 
-		print('Not a State')
+		self.stock -= 1
+
+		if self.stock == 0:
+			self.top.write_angle(ServoController.topAngle[self.topDirection])
+			print('angle: ', ServoController.topAngle[self.topDirection])
+			self.topDirection *= -1
+			self.stock = 3
+			print('restocked')
 
 
 
