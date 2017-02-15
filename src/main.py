@@ -2,6 +2,7 @@
 #14/02/17
 
 import machine      # For Pins and i2C
+import utime
 
 
 import temp007
@@ -9,6 +10,7 @@ import vcnl4010
 import led
 import servo
 import util         # Custom util functions
+import servoController
 
 import jsonEncoder
 
@@ -40,12 +42,66 @@ proxSensor = vcnl4010.Vcnl4010(i2c, proxAddress)
 proxSensor.setup()
 util.msg('Vcnl instantiated, name: proxSensor')
 
+# Instantiate 2 servos
+top = servo.Servo(machine.Pin(12), 50, 350, 2400, 180)
+bottom = servo.Servo(machine.Pin(0), 50, 350, 2400, 180)
+util.msg('2 servos instantiated, name: top; bottom')
+
+# Instantiate servo controller
+servoCtrl = servoController.ServoController(top, bottom)
+util.msg('Servos controller instantiated, name: servoCtrl')
+
 # Connecting to the Wifi
 networkUtil.wifiConnect('EEERover', 'exhibition')
 
 # Publisher for Embedded system class demo
 esPub = networkUtil.Publisher('192.168.0.10', defaultTopic = 'esys/TBC/drugDealer')
 util.msg('Publisher instantiated, name: esPub')
+
+##########################################################################################
+##########################################################################################
+### DEMO
+
+# Make a scheduel for demo:
+currentTime = list(utime.localtime())
+schedule = []
+doseInterval = 10
+
+for i in range(10):
+    temp = list(currentTime)
+    temp[5] = temp[5] + doseInterval * (i+1)
+    schedule.append(tuple(temp))
+
+
+# Running the pill dispenser
+taken = False
+for i in range(len(schedule)):
+    while True:
+        # Time to go to next dose time
+        if (utime.mktime(utime.localtime()) > utime.mktime(schedule[i])):
+            if taken == False:
+                print('Pill Missed!')
+                servoCtrl.next()
+            
+            break
+        # Still within dosage time, checking
+        if util.timeBetween(utime.localtime(), schedule[i], 3):
+            print('ttt')
+            green.on()
+            red.off()
+            if proxSensor.proximity() > 2100:
+                print('Pill Taken!')
+                taken == True
+                servoCtrl.next()
+                break
+        else:
+            print('nttt')
+            green.off()
+            red.on()
+        util.wait(100)
+
+
+
 
 
 

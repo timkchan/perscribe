@@ -43,18 +43,13 @@ class Publisher:
 	# Subscribe from publisher
 	def subscribe(self, topic = None, callBack = ( lambda topic, msg: print((topic, msg)) )):
 		tempTopic = topic or self.defaultTopic
+		self.mqttClient.set_callback(callBack)
 		self.mqttClient.connect()
 		self.mqttClient.subscribe(tempTopic.encode('UTF-8'))
-		while True:
-			if True:
-				# Blocking wait for message
-				self.mqttClient.wait_msg()
-			else:
-				# Non-blocking wait for message
-				self.mqttClient.check_msg()
-				# Then need to sleep to avoid 100% CPU usage (in a real
-				# app other useful actions would be performed instead)
-				time.sleep(1)
+		acquired = False
+		while not acquired:
+			# Blocking wait for message
+			acquired = self.mqttClient.wait_msg()
 		mqttClient.disconnect()
 
 
