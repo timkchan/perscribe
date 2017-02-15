@@ -30,15 +30,34 @@ class Publisher:
 	def __init__(self, server, clientId = 'clientId-UADVnHCKdM', defaultTopic = ''):
 		self.server = server
 		self.clientId = clientId
+		self.mqttClient = MQTTClient(clientId, server)
 		self.defaultTopic = defaultTopic
 
 	# Publish to server with message
 	def publish(self, message = 'Testing', topic = None):
 		tempTopic = topic or self.defaultTopic
-		c = MQTTClient(self.clientId, self.server)
-		c.connect()
-		c.publish(tempTopic.encode('UTF-8'), message) 	#tempTopic.encode('UTF-8') ## b"esys/TBC/drugDealer"
-		c.disconnect()
+		self.mqttClient.connect()
+		self.mqttClient.publish(tempTopic.encode('UTF-8'), message) 	#tempTopic.encode('UTF-8') ## b"esys/TBC/drugDealer"
+		self.mqttClient.disconnect()
+
+	# Subscribe from publisher
+	def subscribe(self, topic = None, callBack = ( lambda topic, msg: print((topic, msg)) )):
+		tempTopic = topic or self.defaultTopic
+		self.mqttClient.connect()
+		self.mqttClient.subscribe(tempTopic.encode('UTF-8'))
+		while True:
+			if True:
+				# Blocking wait for message
+				self.mqttClient.wait_msg()
+			else:
+				# Non-blocking wait for message
+				self.mqttClient.check_msg()
+				# Then need to sleep to avoid 100% CPU usage (in a real
+				# app other useful actions would be performed instead)
+				time.sleep(1)
+		mqttClient.disconnect()
+
+
 
 	# Repeatedly sending MQTT message to server ( for testing )
 	def flush(self, msg = 'TESTING_TESTING_TESTING', times = 10):

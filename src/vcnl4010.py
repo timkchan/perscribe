@@ -1,3 +1,8 @@
+# Tim K. Chan
+# 14/02/17
+
+import util
+
 class Vcnl4010:
 
 	# Register of proximity measurement readings ( High byte (15:8) )
@@ -12,34 +17,25 @@ class Vcnl4010:
 		self.i2c = i2c
 		self.i2cAddress = i2cAddress
 
-	def setUp():
-		self.i2c.writeto_mem(self.i2cAddress, 0x80, b'\x07')
-		self.i2c.writeto_mem(self.i2cAddress, 0x82, b'\x01')
-		self.i2c.writeto_mem(self.i2cAddress, 0x84, b'\x03')
+	def setup(self, intensity = b'\x0D', proxMeasurementPerSec = b'\x01', ambientLightMeasurementPerSec = b'\x03'):
+		self.i2c.writeto_mem(self.i2cAddress, 0x80, b'\x07')	# Set the mode to automatical measurment
+		self.i2c.writeto_mem(self.i2cAddress, 0x82, proxMeasurementPerSec)
+		self.i2c.writeto_mem(self.i2cAddress, 0x84, ambientLightMeasurementPerSec)
+
+		self.i2c.writeto_mem(19, 0x83, intensity)
 
 	# Reading proximity measurement
-	def prox(self):
-		rawHighByte = self.i2c.readfrom_mem(self.i2cAddress, Vcnl4010.proxHighByteReg, Vcnl4010.regByteSize)
-		rawLowByte = self.i2c.readfrom_mem(self.i2cAddress, Vcnl4010.proxLowByteReg, Vcnl4010.regByteSize)
-		return [rawLowByte, rawHighByte]
+	def proximity(self):
+		rawHighByte = self.i2c.readfrom_mem(self.i2cAddress, 0x87, 1)
+		rawLowByte = self.i2c.readfrom_mem(self.i2cAddress, 0x88, 1)
+		return rawHighByte[0] * 256 + rawLowByte[0]
 
-
-
-	# VCNL4010 address, 0x13(19)
-	# Read data back from 0x85(133), 4 bytes
-	# luminance MSB, luminance LSB, Proximity MSB, Proximity LSB
-	data = bus.read_i2c_block_data(0x13, 0x85, 4)
-
-	# Convert the data
-	luminance = data[0] * 256 + data[1]
-	proximity = data[2] * 256 + data[3]
-
-
-
-
-	# Function to print out objTemp at a certain time (ms) interval for i amount of times.
-	def objTempRoll(self, ms, times):
+	# Function to print out proximity at a certain time (ms) interval for i amount of times.
+	def roll(self, ms = 300, times = 10):
 		for __ in range(times):
-			time.sleep_ms(ms)
-			print(self.objTemp())
+			util.wait(ms)
+			print(self.proximity())
 
+
+# Reference:
+# https://github.com/ControlEverythingCommunity/VCNL4010/blob/master/Python/VCNL4010.py

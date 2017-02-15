@@ -1,4 +1,5 @@
 # Jonathan Rawlinson 2017
+
 import ujson
 
 #ex_dict = {'time': 1787072927.399561, 'id': 101, 'taken': True, 'temp': 19.5} #For testing
@@ -6,10 +7,10 @@ import ujson
 ## This module takes a dictionary as an input, checks to ensure that all ofthe input parms exist and if so returns the JSON encoded string
 def pack(ex_dict):
 	if d_check(ex_dict) == True:
-		packed =  json.dumps(ex_dict)
+		packed = ujson.dumps(ex_dict)
 		return packed 
 	else:
-		return json.dumps("invalid input")
+		return ujson.dumps("invalid input")
 	
 
 def d_check(d): ##Check dict format

@@ -10,12 +10,18 @@ import led
 import servo
 import util         # Custom util functions
 
+import jsonEncoder
+
 import networkUtil  # Custom Network functions (WIFI + MQTT)
 from umqtt.simple import MQTTClient
 
 
 # Entry Point Indication
 util.dots()
+
+# Setup led
+green = led.Led(13)
+red = led.Led(15)
 
 # Setup i2c Bus
 i2c = machine.I2C(-1, machine.Pin(5), machine.Pin(4))
@@ -31,6 +37,7 @@ util.msg('Temp007 instantiated, name: tempSensor')
 #Address of VCNL4010 Proximity Sensor
 proxAddress = 19
 proxSensor = vcnl4010.Vcnl4010(i2c, proxAddress)
+proxSensor.setup()
 util.msg('Vcnl instantiated, name: proxSensor')
 
 # Connecting to the Wifi
