@@ -4,7 +4,6 @@
 import machine      # For Pins and i2C
 import utime
 
-
 import temp007
 import vcnl4010
 import led
@@ -53,6 +52,11 @@ util.msg('Servos controller instantiated, name: servoCtrl')
 
 # Connecting to the Wifi
 networkUtil.wifiConnect('EEERover', 'exhibition')
+
+
+#Grab the time from the MQTT broker and set the RTC
+timeSet = networkUtil.Publisher('192.168.0.10', defaultTopic = 'esys/time')
+timeSet.subscribe()
 
 # Publisher for Embedded system class demo
 esPub = networkUtil.Publisher('192.168.0.10', defaultTopic = 'esys/TBC/drugDealer')
