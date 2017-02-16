@@ -51,15 +51,15 @@ servoCtrl = servoController.ServoController(top, bottom)
 util.msg('Servos controller instantiated, name: servoCtrl')
 
 # Connecting to the Wifi
-networkUtil.wifiConnect('EEERover', 'exhibition')
+networkUtil.wifiConnect('MotoG3', 'embedded')   #('EEERover', 'exhibition')
 
 
-#Grab the time from the MQTT broker and set the RTC
-timeSet = networkUtil.Publisher('192.168.0.10', defaultTopic = 'esys/time')
-timeSet.subscribe()
+# #Grab the time from the MQTT broker and set the RTC
+# timeSet = networkUtil.Publisher('192.168.0.10', defaultTopic = 'esys/time')
+# timeSet.subscribe()
 
 # Publisher for Embedded system class demo
-esPub = networkUtil.Publisher('192.168.0.10', defaultTopic = 'esys/TBC/drugDealer')
+esPub = networkUtil.Publisher('broker.hivemq.com', defaultTopic = 'esys/TBC/drugDealer')
 util.msg('Publisher instantiated, name: esPub')
 
 ##########################################################################################
@@ -71,7 +71,7 @@ currentTime = list(utime.localtime())
 schedule = []
 doseInterval = 10
 
-for i in range(10):
+for i in range(100):
     temp = list(currentTime)
     temp[5] = temp[5] + doseInterval * (i+1)
     schedule.append(tuple(temp))

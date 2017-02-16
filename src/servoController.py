@@ -22,7 +22,7 @@ class ServoController:
 		self.direction = 1			# 1 = counter clockwise, -1 = clocwise
 		self.empty = False
 		self.stock = 3
-		self.topDirection = 1
+		self.topDirection = -1
 
 
 	def next(self):
