@@ -70,9 +70,6 @@
           <a href="index.html">Prescribe</a>
         </li>
         <li >
-          <a href="work/index.html">How it works</a>
-        </li>
-        <li >
           <a href="https://github.com/timkchan/practiceReminder">GitHub</a>
         </li>
       </ul>
@@ -131,7 +128,7 @@
             </div>
             <p class="featured-list-icon-text m-b-0"><strong>Cloud connected</strong></p>
             <p class="featured-list-icon-text">
-              Using secure cloud storage, your loved ones and doctor and check on your medication schedule from anywhere, on any device.
+              Using secure cloud storage, your loved ones and doctor can check on your medication schedule from anywhere, on any device.
             </p>
           </li>
 
@@ -164,7 +161,7 @@
             <div class="row">
               <div class="col-sm-8 col-sm-offset-2">
                 <p class="lead m-x-auto text-center">
-                  With so many different medications to take nowadays it can be hard to track. Prescribe helps you to always take the right pills and helps your loved ones watch out for you.</span>
+                  With so many different medications to take nowadays it can be hard to keep track. Prescribe helps you to always take the right pills and helps your loved ones watch out for you.</span>
                 </p>
               </div>
             </div>
@@ -357,7 +354,7 @@
       <div class="col-md-5 col-sm-6 text-xs-center text-sm-left">
         <p class="lead">
           <strong>Prescribe in hospitals</strong> 
-          Prescribe has also been deployed in trials at hospitals across the country. Prescribe helps take the strain off overstaffed nurses so they can spend more time looking after patients.
+          Prescribe has also been deployed in trials at hospitals across the country. Prescribe helps take the strain off overworked nurses in understaffed hospitals so they can spend more time looking after patients.
         </p>
       </div>
     </div>
@@ -380,6 +377,155 @@
     </small>
   </div>
 </div>
+
+<div class="block app-block-intro">
+  <div class="container text-center">
+    <h1 class="block-title m-b-sm text-uppercase app-myphone-brand">How Prescribe works</h1>
+    <p class="lead m-b-lg p-b-md">Making medication easy</p>
+    <img src="assets/img/block_diagram.png">
+  </div>
+</div>
+
+<div class="block block-bordered-lg p-b-0 app-block-stats">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7 col-sm-6">
+        <img
+          src="assets/img/prescribe_prescribase.png"
+          class="app-translate-5"
+          data-transition="entrance">
+        <hr class="m-t-0 m-b-lg m-x-auto visible-xs">
+      </div>
+      <div class="col-md-5 col-sm-6 text-xs-center text-sm-left">
+        <p class="lead">
+          <strong>PrescriBase</strong>
+          The base layer which holds 3 doses. A servo controls a “ship’s steering wheel” which contains slots for your doses, and dispenses them one slot at a time.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="block block-bordered-lg p-b-0 app-block-stats">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7 col-sm-6">
+        <p class="lead">
+          <strong>PrescriBox</strong>
+          Add-on boxes that hold 3 doses. Stack them up and lock them in place on your Prescribe to increase the dosage capacity.
+        </p>
+      </div>
+      <div class="col-md-5 col-sm-6 text-xs-center text-sm-left">
+        <img
+          src="assets/img/prescribe_prescribox.png"
+          class="app-translate-5"
+          data-transition="entrance">
+        <hr class="m-t-0 m-b-lg m-x-auto visible-xs">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="block block-bordered-lg p-b-0 app-block-stats">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7 col-sm-6">
+        <img
+          src="assets/img/esp.jpg"
+          class="app-translate-5"
+          data-transition="entrance">
+        <hr class="m-t-0 m-b-lg m-x-auto visible-xs">
+      </div>
+      <div class="col-md-5 col-sm-6 text-xs-center text-sm-left">
+        <p class="lead">
+          <strong>Chip</strong>
+The ESP8266MOD chip communicates with the sensors and LEDs and connects to the Internet, giving you extended control and access to usage data of Prescribe on your computer or smartphone.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="block block-bordered-lg p-b-0 app-block-stats">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7 col-sm-6">
+        <p class="lead">
+          <strong>Proximity Sensor</strong>        
+This senses whether your hand is placed under the dispensing gap.
+        </p>
+      </div>
+      <div class="col-md-5 col-sm-6 text-xs-center text-sm-left">
+        <img
+          src="assets/img/prox.png"
+          class="app-translate-5"
+          data-transition="entrance">
+        <hr class="m-t-0 m-b-lg m-x-auto visible-xs">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="block block-bordered-lg p-b-0 app-block-stats">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7 col-sm-6">
+        <img
+          src="assets/img/servo.jpg"
+          class="app-translate-5"
+          data-transition="entrance">
+        <hr class="m-t-0 m-b-lg m-x-auto visible-xs">
+      </div>
+      <div class="col-md-5 col-sm-6 text-xs-center text-sm-left">
+        <p class="lead">
+          <strong>Servos</strong>
+They rotate the wheels inside each layer of Prescribe, providing and refilling doses when you need them.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="block block-bordered-lg p-b-0 app-block-stats">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7 col-sm-6">
+        <p class="lead">
+          <strong>Temperature sensor</strong>        
+This senses the temperature around Prescribe. You can access this data on your pScribe App to see if the temperature is suitable for your type of medicine. Make sure to store your medicine in cool areas.
+        </p>
+      </div>
+      <div class="col-md-5 col-sm-6 text-xs-center text-sm-left">
+        <img
+          src="assets/img/tmp.jpg"
+          class="app-translate-5"
+          data-transition="entrance">
+        <hr class="m-t-0 m-b-lg m-x-auto visible-xs">
+      </div>
+    </div>
+  </div>
+</div>
+  
+<div class="block block-bordered-lg p-b-0 app-block-stats">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7 col-sm-6">
+        <img
+          src="assets/img/led.jpg"
+          class="app-translate-5"
+          data-transition="entrance">
+        <hr class="m-t-0 m-b-lg m-x-auto visible-xs">
+      </div>
+      <div class="col-md-5 col-sm-6 text-xs-center text-sm-left">
+        <p class="lead">
+          <strong>LEDs</strong>
+Red means it’s not yet time for your next dosage. Green means it’s time.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <div class="block app-block-footer">
   <div class="container">
