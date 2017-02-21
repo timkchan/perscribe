@@ -51,7 +51,7 @@ servoCtrl = servoController.ServoController(top, bottom)
 util.msg('Servos controller instantiated, name: servoCtrl')
 
 # Connecting to the Wifi
-networkUtil.wifiConnect('MotoG3', 'embedded')   #('EEERover', 'exhibition')
+# networkUtil.wifiConnect('EEERover', 'exhibition')
 
 
 # #Grab the time from the MQTT broker and set the RTC
@@ -59,8 +59,8 @@ networkUtil.wifiConnect('MotoG3', 'embedded')   #('EEERover', 'exhibition')
 # timeSet.subscribe()
 
 # Publisher for Embedded system class demo
-esPub = networkUtil.Publisher('broker.hivemq.com', defaultTopic = 'esys/TBC/drugDealer')
-util.msg('Publisher instantiated, name: esPub')
+# esPub = networkUtil.Publisher('broker.hivemq.com', defaultTopic = 'esys/TBC/drugDealer')
+# util.msg('Publisher instantiated, name: esPub')
 
 ##########################################################################################
 ##########################################################################################
@@ -85,7 +85,7 @@ for i in range(len(schedule)):
             if taken == False:
                 msgDict = {'time': utime.localtime(), 'id': 101, 'taken': False, 'temp': tempSensor.objTemp()}
                 msg = jsonEncoder.pack(msgDict)
-                esPub.publish(msg)
+                # esPub.publish(msg)
                 print('Pill Missed!', msg)
                 servoCtrl.next()
             
@@ -98,7 +98,7 @@ for i in range(len(schedule)):
             if proxSensor.proximity() > 2100:
                 msgDict = {'time': utime.localtime(), 'id': 101, 'taken': True, 'temp': tempSensor.objTemp()}
                 msg = jsonEncoder.pack(msgDict)
-                esPub.publish(msg)
+                # esPub.publish(msg)
                 print('Pill Taken!', msg)
                 taken == True
                 servoCtrl.next()

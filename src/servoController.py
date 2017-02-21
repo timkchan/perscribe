@@ -10,7 +10,7 @@ class ServoController:
 	# Amount of turn of each discard
 	quarterTurn = 30
 	bottomAngle = [13, 55, 95, 133]
-	topAngle = [0, 12, 170]
+	topAngle = [0, 12, 169]	#[0, 12, 170]
 	
 
 	def __init__(self, top, bottom):
